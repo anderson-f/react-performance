@@ -15,8 +15,9 @@ function App() {
   }, []);
 
   const countItemsWithOne = useMemo(() => {
-    console.log("item calculado"); // só executa quando o valor de items muda
-    return items.filter((item) => item.includes("1")).length;
+    return {
+      count: items.filter((item) => item.includes("1")).length,
+    };
   }, [items]);
 
   return (
@@ -30,11 +31,15 @@ function App() {
       <ul>
         {items.map((item) => {
           return (
-            <Item key={item} onAddToWishlist={addItemToWishlist} title={item} />
+            <Item
+              key={item}
+              onAddToWishlist={addItemToWishlist}
+              countItemsWithOne={countItemsWithOne}
+              title={item}
+            />
           );
         })}
       </ul>
-      <div>Contagem: {countItemsWithOne}</div>
     </div>
   );
 }
